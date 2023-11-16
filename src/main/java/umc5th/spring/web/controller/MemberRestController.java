@@ -1,5 +1,6 @@
 package umc5th.spring.web.controller;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,21 +11,18 @@ import umc5th.spring.converter.MemberConverter;
 import umc5th.spring.domain.Member;
 import umc5th.spring.service.MemberService.MemberCommandService;
 import umc5th.spring.web.dto.MemberRequestDTO;
-import umc5th.spring.web.dto.MemberResponseDTO;
-
-import javax.validation.Valid;
+import umc5th.spring.web.dto.MemberResponseDTO.JoinResultDTO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberRestController {
 
     private final MemberCommandService memberCommandService;
 
     @PostMapping("/")
-    public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request){
+    public ApiResponse<JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request) {
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
-
 }

@@ -34,14 +34,15 @@ public class MemberFoodType extends BaseEntity {
     @JoinColumn(name = "food_type_id")
     private FoodType foodType;
 
-    public void setMember(Member member){
-        if(this.member != null)
+    public void setMember(Member member) {
+        if (this.member != null) {
             member.getMemberFoodTypeList().remove(this);
+        }
         this.member = member;
         member.getMemberFoodTypeList().add(this);
     }
 
-    public void setFoodType(FoodType foodType){
+    public void setFoodType(FoodType foodType) {
         this.foodType = foodType;
     }
 }
