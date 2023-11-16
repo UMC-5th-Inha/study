@@ -2,6 +2,7 @@ package umc5th.spring.converter;
 
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Review;
+import umc5th.spring.domain.Store;
 import umc5th.spring.domain.enums.Gender;
 import umc5th.spring.web.dto.MemberRequestDTO;
 import umc5th.spring.web.dto.MemberResponseDTO;
@@ -20,10 +21,12 @@ public class ReviewConverter {
                 .build();
     }
 
-    public static Review toReview(ReviewRequestDTO.CreateDto request) {
+    public static Review toReview(ReviewRequestDTO.CreateDto request, Member member, Store store) {
         return Review.builder()
                 .content(request.getContent())
                 .rating(request.getRating())
+                .member(member)
+                .store(store)
                 .build();
 
     }

@@ -1,10 +1,7 @@
 package umc5th.spring.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import umc5th.spring.apiPayload.ApiResponse;
 import umc5th.spring.converter.MemberConverter;
 import umc5th.spring.converter.ReviewConverter;
@@ -20,13 +17,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/review")
+@RequestMapping("/reviews")
 public class ReviewController {
     private final ReviewCommandService reviewCommandService;
 
-    @PostMapping("/")
-    public ApiResponse<ReviewResponseDTO.ReviewResultDTO> join(@RequestBody @Valid ReviewRequestDTO.CreateDto request){
-        Review review = reviewCommandService.createReview(request);
+    @PostMapping("/{storeId}")
+    public ApiResponse<ReviewResponseDTO.ReviewResultDTO> join(@RequestBody @Valid ReviewRequestDTO.CreateDto request, @PathVariable Long storeId){
+        Review review = reviewCommandService.createReview(request, storeId);
         return ApiResponse.onSuccess(ReviewConverter.toReviewResultDTO(review));
     }
 }
