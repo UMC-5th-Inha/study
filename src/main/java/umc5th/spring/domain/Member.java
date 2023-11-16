@@ -16,6 +16,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc5th.spring.domain.common.BaseEntity;
 import umc5th.spring.domain.enums.Gender;
 import umc5th.spring.domain.enums.MemberStatus;
@@ -25,6 +28,8 @@ import umc5th.spring.domain.mapping.MemberMission;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -36,7 +41,7 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false, length = 20)
     private String name;
-    @Column(nullable = false, length = 50)
+    //@Column(nullable = false, length = 50)
     private String email;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
@@ -48,6 +53,7 @@ public class Member extends BaseEntity {
     private MemberStatus status;
 
     //private Boolean status;
+    @ColumnDefault("0")
     private Integer point;
     @Column(nullable = false, length = 40)
     private String address;
