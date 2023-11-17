@@ -24,16 +24,20 @@ public class StoreCommandServiceImpl implements StoreCommandService{
     @Override
     public Store joinStore(StoreRequestDTO.JoinDto request) {
 
-        Region newRegion = Region.builder()
-                .name(request.getRegionName())
-                .storeList(new ArrayList<>())
-                .build();
+        Region region = regionRepository.findRegionByName(request.getRegionName());
 
-        Store newStore = StoreConverter.toStore(request, newRegion);
+        if(region == null){
+            region = Region.builder()
+                    .name(request.getRegionName())
+                    .storeList(new ArrayList<>())
+                    .build();
+        }
 
-        //newRegion.getStoreList().add(newStore);
+        Store newStore = StoreConverter.toStore(request, region);
 
-        regionRepository.save(newRegion);
+        // region.getStoreList().add(newStore);
+
+        regionRepository.save(region);
 
         return storeRepository.save(newStore);
     }

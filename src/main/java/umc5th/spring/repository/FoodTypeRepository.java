@@ -5,5 +5,4 @@ import umc5th.spring.domain.FoodType;
 
 public interface FoodTypeRepository extends JpaRepository<FoodType, Long> {
 
-
 }
