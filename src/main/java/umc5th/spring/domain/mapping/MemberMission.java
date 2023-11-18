@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Mission;
 import umc5th.spring.domain.common.BaseEntity;
+import umc5th.spring.domain.enums.MemberMissionState;
 
 @Entity
 @Getter
@@ -28,8 +29,9 @@ public class MemberMission extends BaseEntity {
     private Long id;
 
     private Boolean status;
+    // soft delete를 위한 상태
     @Column(nullable = false)
-    private Integer state;
+    private MemberMissionState state;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
