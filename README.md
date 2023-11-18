@@ -7,7 +7,10 @@
   - fail : 실패
 - [x] DTO
 - [x] Converter
-- [ ] Controller
-- [ ] Service
-- [ ] Repository
-- 
+- [x] Controller
+- [x] Service
+- [x] Repository
+
+memberMission 이 아무래도 member 와 mission 의 매핑 엔티티다보니
+
+memberMissionCommandServiceImpl 이 memberRepository와 missionRepoistory에 의존성을 가질 수 밖에 없었습니다.
