@@ -6,8 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class MemberMissionResponseDTO {
+import java.time.LocalDateTime;
+import lombok.*;
 
+
+public class MemberMissionResponseDTO {
     @Builder
     @Getter
     @NoArgsConstructor
@@ -31,4 +34,12 @@ public class MemberMissionResponseDTO {
         String content;
     }
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class addMemberMissionResultDTO{
+        Long memberMissionId;
+        LocalDateTime createdAt;
+    }
 }

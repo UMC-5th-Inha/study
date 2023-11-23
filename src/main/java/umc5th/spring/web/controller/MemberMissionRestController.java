@@ -1,5 +1,6 @@
 package umc5th.spring.web.controller;
 
+import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import umc5th.spring.domain.Mission;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +20,15 @@ import umc5th.spring.converter.MemberMissionConverter;
 import umc5th.spring.domain.mapping.MemberMission;
 import umc5th.spring.service.MemberService.MemberQueryService;
 import umc5th.spring.web.dto.MemberMissionResponseDTO;
+import umc5th.spring.service.MemberMissionService.MemberMissionCommandSevice;
 
 @RestController
-@RequestMapping("/missions")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberMissionRestController {
 
     private final MemberQueryService memberQueryService;
+    private final MemberMissionCommandSevice memberMissionCommandSevice;
 
     @GetMapping("/{memberId}")
     @Operation(summary = "내가 진행중인 미션 목록 조회 API", description = "내가 진행중인 미션의 목록을 조회하는 API이며, 페이징을 포함합니다. Query String 으로 page 번호를 주세요")
@@ -40,6 +44,19 @@ public class MemberMissionRestController {
         Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(memberId, page);
 
         return ApiResponse.onSuccess(MemberMissionConverter.myMissionPreviewInProgressListDTO(memberMissionList));
+    }
+
+    @GetMapping("/{memberId}/missions/")
+    public List<Mission> getAvailableMissions(@PathVariable Long memberId) {
+        return memberMissionCommandSevice.getAvailableMissions(memberId);
+    }
+
+    @PostMapping("/{memberId}/missions/{missionId}")
+    public ApiResponse<MemberMissionResponseDTO.addMemberMissionResultDTO> addMemberMission(
+            @PathVariable Long memberId, @PathVariable Long missionId) {
+        MemberMission savedMemberMission = memberMissionCommandSevice.addMemberMission(memberId, missionId);
+
+        return ApiResponse.onSuccess(MemberMissionConverter.toAddMemberMissionResultDTO(savedMemberMission));
     }
 
 }

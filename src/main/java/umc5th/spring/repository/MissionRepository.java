@@ -5,5 +5,4 @@ import umc5th.spring.domain.Mission;
 
 public interface MissionRepository extends JpaRepository<Mission, Long> {
 
-
 }
