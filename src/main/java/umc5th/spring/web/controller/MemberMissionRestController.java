@@ -14,8 +14,7 @@ import umc5th.spring.web.dto.MemberMissionResponseDTO;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class MemberMissionRestController {
-
-    MemberMissionCommandSevice memberMissionCommandSevice;
+    private final MemberMissionCommandSevice memberMissionCommandSevice;
 
     @GetMapping("/{memberId}/missions/")
     public List<Mission> getAvailableMissions(@PathVariable Long memberId) {
@@ -29,4 +28,9 @@ public class MemberMissionRestController {
 
         return ApiResponse.onSuccess(MemberMissionConverter.toAddMemberMissionResultDTO(savedMemberMission));
     }
+    @PatchMapping ("/{memberId}/missions/{memberMissionId}")
+    public MemberMission updateMemberMissionComplete(@PathVariable Long memberId, @PathVariable Long memberMissionId){
+        return memberMissionCommandSevice.updateMemberMissionComplete(memberId, memberMissionId);
+    }
+
 }
