@@ -13,12 +13,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Mission;
 import umc5th.spring.domain.common.BaseEntity;
 import umc5th.spring.domain.enums.MemberMissionState;
 
 @Entity
+@Setter
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
