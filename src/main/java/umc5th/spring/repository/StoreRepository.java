@@ -5,4 +5,5 @@ import umc5th.spring.domain.Store;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
+    Store findStoreById(Long storeId);
 }

@@ -1,6 +1,7 @@
 package umc5th.spring.converter;
 
 import umc5th.spring.domain.Region;
+import umc5th.spring.domain.Review;
 import umc5th.spring.domain.Store;
 import umc5th.spring.web.dto.StoreRequestDTO;
 import umc5th.spring.web.dto.StoreResponseDTO;
