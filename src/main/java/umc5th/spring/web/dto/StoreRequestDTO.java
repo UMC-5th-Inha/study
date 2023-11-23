@@ -12,12 +12,4 @@ public class StoreRequestDTO {
         String address;
         String regionName;
     }
-  
-    @Getter
-    public static class CreateDto{
-        String name;
-        String address;
-        String type;
-
-    }
 }
