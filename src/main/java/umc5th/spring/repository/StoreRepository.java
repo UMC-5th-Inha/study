@@ -7,5 +7,6 @@ import umc5th.spring.domain.Store;
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     Optional<Store> findById(Long id);
+    Optional<Store> findByIdAndStateTrue(Long storeId);
 
 }
