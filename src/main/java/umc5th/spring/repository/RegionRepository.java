@@ -5,5 +5,7 @@ import umc5th.spring.domain.Region;
 
 public interface RegionRepository extends JpaRepository<Region, Long> {
 
+
     Region findRegionByName(String regionName);
+
 }
