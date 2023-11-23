@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import umc5th.spring.converter.MemberMissionConverter;
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Mission;
+import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
 import umc5th.spring.repository.MemberMissionRepository;
 import umc5th.spring.repository.MemberRepository;
@@ -54,6 +55,28 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandSevi
         if (memberMissionRepository.existsById(memberMission.getId())) {
             throw new IllegalArgumentException("Member-mission ID already exists: " + memberMission);
         }
+        return memberMissionRepository.save(memberMission);
+    }
+
+    @Override
+    @Transactional
+    public MemberMission updateMemberMissionComplete(Long memberId, Long memberMissionId) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new IllegalArgumentException("Member ID does not exist: " + memberId);
+        }
+
+        if (!memberMissionRepository.existsById(memberMissionId)) {
+            throw new IllegalArgumentException("No Member-mission Id : " + memberMissionId);
+        }
+
+        MemberMission memberMission = memberMissionRepository.getReferenceById(memberMissionId);
+        memberMission.setState(MemberMissionState.COMPLETE);
+
+        Integer rewards = memberMission.getMission().getPoint();
+
+        Member member = memberRepository.getReferenceById(memberId);
+        member.setPoint(member.getPoint() + rewards);
+
         return memberMissionRepository.save(memberMission);
     }
 }
