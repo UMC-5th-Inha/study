@@ -9,6 +9,17 @@ import java.time.LocalDateTime;
 
 
 public class StoreResponseDTO {
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+
+    public static class JoinResultDTO{
+        Long storeId;
+        LocalDateTime createdAt;
+    }
+    
     @Builder
     @Getter
     @NoArgsConstructor
@@ -17,5 +28,4 @@ public class StoreResponseDTO {
         Long storeId;
         LocalDateTime createdAt;
     }
-
 }
