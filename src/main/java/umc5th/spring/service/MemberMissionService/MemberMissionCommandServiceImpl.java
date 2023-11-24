@@ -1,7 +1,9 @@
 package umc5th.spring.service.MemberMissionService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import org.hibernate.service.NullServiceException;
 import org.springframework.transaction.annotation.Transactional;
 import umc5th.spring.converter.MemberMissionConverter;
 import umc5th.spring.domain.Member;
@@ -68,13 +70,18 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandSevi
         if (!memberMissionRepository.existsById(memberMissionId)) {
             throw new IllegalArgumentException("No Member-mission Id : " + memberMissionId);
         }
-
-        MemberMission memberMission = memberMissionRepository.getReferenceById(memberMissionId);
+        if(memberMissionRepository.findById(memberMissionId).isEmpty()) {
+            throw new NoSuchElementException("No Member-mission");
+        }
+        MemberMission memberMission = memberMissionRepository.findById(memberMissionId).get();
         memberMission.setState(MemberMissionState.COMPLETE);
 
         Integer rewards = memberMission.getMission().getPoint();
 
-        Member member = memberRepository.getReferenceById(memberId);
+        if(memberRepository.findById(memberId).isEmpty()){
+            throw new NoSuchElementException("No Member");
+        }
+        Member member = memberRepository.findById(memberId).get();
         member.setPoint(member.getPoint() + rewards);
 
         return memberMissionRepository.save(memberMission);
