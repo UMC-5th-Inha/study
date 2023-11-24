@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import umc5th.spring.domain.ReviewImage;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,14 +23,15 @@ public class ReviewResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ReviewResultDTO{
-
+    public static class ReviewSearchResultDTO {
         Long reviewId;
         String content;
         Float rating;
         Boolean status;
+        String memberName;
         String storeName;
         LocalDateTime createdAt;
+        List<ReviewImage> reviewImageList;
     }
 
     @Builder
@@ -38,7 +40,7 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     public static class ReviewResultListDTO{
 
-        List<ReviewResultDTO> reviewList;
+        List<ReviewSearchResultDTO> reviewList;
         Integer listSize;
         Integer totalPage;
         Long totalElements;
