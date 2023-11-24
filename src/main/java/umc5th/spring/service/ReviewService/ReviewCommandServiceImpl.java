@@ -10,7 +10,7 @@ import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Review;
 import umc5th.spring.domain.Store;
 import umc5th.spring.repository.MemberRepository;
-import umc5th.spring.repository.ReviewRepositoy;
+import umc5th.spring.repository.ReviewRepository;
 import umc5th.spring.repository.StoreRepository;
 import umc5th.spring.web.dto.ReviewRequestDTO;
 
@@ -20,7 +20,7 @@ import umc5th.spring.web.dto.ReviewRequestDTO;
 @Transactional(readOnly = true)
 public class ReviewCommandServiceImpl implements ReviewCommandService {
 
-    private final ReviewRepositoy reviewRepositoy;
+    private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
     @Override
@@ -32,7 +32,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_EXTIST));
 
         Review newReview = ReviewConverter.toReview(request,member, store);
-        return reviewRepositoy.save(newReview);
+        return reviewRepository.save(newReview);
 
 
     }
