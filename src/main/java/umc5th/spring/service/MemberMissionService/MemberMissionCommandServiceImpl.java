@@ -1,7 +1,8 @@
 package umc5th.spring.service.MemberMissionService;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc5th.spring.converter.MemberMissionConverter;
 import umc5th.spring.domain.Member;
@@ -12,11 +13,14 @@ import umc5th.spring.repository.MemberRepository;
 import umc5th.spring.repository.MissionRepository;
 import umc5th.spring.service.MemberService.MemberCommandService;
 
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberMissionCommandServiceImpl implements MemberMissionCommandSevice {
-    MemberCommandService memberCommandService;
-    MissionRepository missionRepository;
-    MemberMissionRepository memberMissionRepository;
-    MemberRepository memberRepository;
+    private final MemberCommandService memberCommandService;
+    private final MissionRepository missionRepository;
+    private final MemberMissionRepository memberMissionRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional

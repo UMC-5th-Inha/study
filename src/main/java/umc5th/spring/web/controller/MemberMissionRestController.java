@@ -1,26 +1,30 @@
 package umc5th.spring.web.controller;
 
-import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import umc5th.spring.domain.Mission;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import umc5th.spring.apiPayload.ApiResponse;
 import umc5th.spring.converter.MemberMissionConverter;
+import umc5th.spring.domain.Mission;
+import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
-import umc5th.spring.service.MemberService.MemberQueryService;
-import umc5th.spring.web.dto.MemberMissionResponseDTO;
 import umc5th.spring.service.MemberMissionService.MemberMissionCommandSevice;
+import umc5th.spring.service.MemberService.MemberQueryService;
+import umc5th.spring.web.dto.MemberMissionRequestDTO;
+import umc5th.spring.web.dto.MemberMissionResponseDTO;
 
 @RestController
 @RequestMapping("/members")
@@ -40,8 +44,10 @@ public class MemberMissionRestController {
     })
     @Parameters({@Parameter(name = "memberId", description = "멤버의 아이디, path variable 입니다")})
     public ApiResponse<MemberMissionResponseDTO.MyMissionPreviewInProgressListDTO> getMyMissionInProgressList(
-            @PathVariable(name = "memberId") Long memberId, @RequestParam(name = "page") Integer page) {
-        Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(memberId, page);
+            @PathVariable(name = "memberId") Long memberId, @RequestParam(name = "page") Integer page,
+            @RequestParam MemberMissionState memberMissionState) {
+        Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(memberId, page,
+                memberMissionState);
 
         return ApiResponse.onSuccess(MemberMissionConverter.myMissionPreviewInProgressListDTO(memberMissionList));
     }
