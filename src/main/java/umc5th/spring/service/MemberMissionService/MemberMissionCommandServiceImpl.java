@@ -1,11 +1,14 @@
 package umc5th.spring.service.MemberMissionService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import org.hibernate.service.NullServiceException;
 import org.springframework.transaction.annotation.Transactional;
 import umc5th.spring.converter.MemberMissionConverter;
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.Mission;
+import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
 import umc5th.spring.repository.MemberMissionRepository;
 import umc5th.spring.repository.MemberRepository;
@@ -54,6 +57,33 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandSevi
         if (memberMissionRepository.existsById(memberMission.getId())) {
             throw new IllegalArgumentException("Member-mission ID already exists: " + memberMission);
         }
+        return memberMissionRepository.save(memberMission);
+    }
+
+    @Override
+    @Transactional
+    public MemberMission updateMemberMissionComplete(Long memberId, Long memberMissionId) {
+        if (!memberRepository.existsById(memberId)) {
+            throw new IllegalArgumentException("Member ID does not exist: " + memberId);
+        }
+
+        if (!memberMissionRepository.existsById(memberMissionId)) {
+            throw new IllegalArgumentException("No Member-mission Id : " + memberMissionId);
+        }
+        if(memberMissionRepository.findById(memberMissionId).isEmpty()) {
+            throw new NoSuchElementException("No Member-mission");
+        }
+        MemberMission memberMission = memberMissionRepository.findById(memberMissionId).get();
+        memberMission.setState(MemberMissionState.COMPLETE);
+
+        Integer rewards = memberMission.getMission().getPoint();
+
+        if(memberRepository.findById(memberId).isEmpty()){
+            throw new NoSuchElementException("No Member");
+        }
+        Member member = memberRepository.findById(memberId).get();
+        member.setPoint(member.getPoint() + rewards);
+
         return memberMissionRepository.save(memberMission);
     }
 }

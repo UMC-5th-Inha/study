@@ -8,4 +8,6 @@ public interface MemberMissionCommandSevice {
     List<Mission> getAvailableMissions(Long memberId);
 
     MemberMission addMemberMission(Long memberId, Long missionId);
+
+    MemberMission updateMemberMissionComplete(Long memberId, Long memberMissionId);
 }
