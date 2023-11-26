@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import umc5th.spring.apiPayload.ApiResponse;
 import umc5th.spring.converter.MemberMissionConverter;
@@ -23,7 +22,6 @@ import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
 import umc5th.spring.service.MemberMissionService.MemberMissionCommandSevice;
 import umc5th.spring.service.MemberService.MemberQueryService;
-import umc5th.spring.web.dto.MemberMissionRequestDTO;
 import umc5th.spring.web.dto.MemberMissionResponseDTO;
 
 @RestController

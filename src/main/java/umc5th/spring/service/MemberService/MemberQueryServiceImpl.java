@@ -11,7 +11,6 @@ import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
 import umc5th.spring.repository.MemberMissionRepository;
 import umc5th.spring.repository.MemberRepository;
-import umc5th.spring.repository.MissionRepository;
 
 @Service
 @RequiredArgsConstructor

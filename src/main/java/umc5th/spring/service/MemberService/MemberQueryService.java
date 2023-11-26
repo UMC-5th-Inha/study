@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import umc5th.spring.domain.Member;
 import umc5th.spring.domain.enums.MemberMissionState;
 import umc5th.spring.domain.mapping.MemberMission;
-import umc5th.spring.web.dto.MemberMissionRequestDTO;
 
 public interface MemberQueryService {
 
