@@ -28,9 +28,13 @@ public class MemberMissionRestController {
 
         return ApiResponse.onSuccess(MemberMissionConverter.toAddMemberMissionResultDTO(savedMemberMission));
     }
-    @PatchMapping ("/{memberId}/missions/{memberMissionId}")
-    public MemberMission updateMemberMissionComplete(@PathVariable Long memberId, @PathVariable Long memberMissionId){
-        return memberMissionCommandSevice.updateMemberMissionComplete(memberId, memberMissionId);
+
+    @PatchMapping("/{memberId}/missions/{memberMissionId}")
+    public ApiResponse<MemberMission> updateMemberMissionComplete(@PathVariable Long memberId,
+                                                                  @PathVariable Long memberMissionId) {
+        MemberMission updatedMemberMission =
+                memberMissionCommandSevice.updateMemberMissionComplete(memberId, memberMissionId);
+        return ApiResponse.onSuccess(updatedMemberMission);
     }
 
 }
