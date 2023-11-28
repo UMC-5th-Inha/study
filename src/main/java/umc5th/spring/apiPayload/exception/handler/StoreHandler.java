@@ -5,4 +5,5 @@ import umc5th.spring.apiPayload.exception.GeneralException;
 
 public class StoreHandler extends GeneralException {
     public StoreHandler(BaseErrorCode errorCode) {super(errorCode);}
+
 }
